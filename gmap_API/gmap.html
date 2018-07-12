@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title></title>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="site.css">
+	<style>
+		html,
+		body,
+		#viewDiv {
+			padding: 0;
+			margin: 0;
+			height: 100%;
+			width: 100%;
+		}
+
+		.control-ui {
+			width: 30%;
+			float: left;
+		}
+
+		#viewDiv {
+			width: 70%;
+			float: right;
+		}
+
+		#search-control-ui {
+			margin: 10px;
+		}
+
+		.address {
+			cursor: pointer;
+		}
+
+		#slider {
+			margin: 15px;
+		}
+
+		#resultList,
+		#buffer,
+		#Layerlist {
+			display: none;
+		}
+	</style>
+
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://js.arcgis.com/4.6/"></script>
+	<script src="site.js"></script>
+	<script src="site_map.js"></script>
+	<script type="text/javascript">
+		//console.log("row:17");
+		$(function () { //@window.onload
+			//console.log("onload");
+			formInit(); //@site.js
+
+			//mapInit(); //@site_map.js
+		});
+
+//console.log("page");
+
+	</script>
+
+</head>
+
+<body>
+	<div class="control-ui">
+		<div id="search-control-ui">
+			<div id="optionArea">
+				<input type=radio data-id="addressArea" id="rbAddress" name="optionArea" checked="" class="option">
+				<label for="rbAddress" style="cursor:pointer;"> address </label>
+				<input type="radio" data-id="xyArea" id="rbXY" name="optionArea" class="option">
+				<label for="rbXY" style="cursor:pointer;"> x,y </label>
+			</div>
+			<div id="addressArea">
+				<H1>Step1:請輸入查詢地址。</H1>
+				<input id="query-input" autofocus="" value="中正路">
+				<input id="btnSearch" value="地理編碼" type="button">
+			</div>
+			<div id="xyArea">
+				<H1>Step1:請輸入經緯度[十進位]。</H1>
+				東經：
+				<span style="color:red;">*</span>&nbsp;
+				<input id="WGS84lng" type="text" style="width:150px;" value="121.5351444"> 北緯：
+				<span style="color:red;">*</span>&nbsp;
+				<input id="WGS84lat" type="text" style="width:150px;" value="25.03375633">
+				<input id="btnPositXY" value="定位" type="button">
+			</div>
+		</div>
+		<table id="resultList"></table>
+		<div id="buffer">
+			<h2>Step2:請選擇你要的分析範圍</h2>
+			<div id="slider">
+				<div id="custom-handle" class="ui-slider-handle"></div>
+			</div>
+		</div>
+		<div id="Layerlist">
+			<h2>Step3:請選擇你要的分析的圖層</h2>
+			<input type="button" value="緩衝範圍" class="ToggleLayer" data-id="bufferLayer1">
+			</br>
+			<input type="radio" class="layerGroup" value="Real_Estate_Case_0" name="layerGroup" checked="checked">
+			<input type="button" value="台北市實價登錄_僅土地與建物_含建造年份_排除極值" class="ToggleLayer" data-id="Real_Estate_Case_0">
+			</br>
+			<input type="radio" class="layerGroup" name="layerGroup" value="Real_Estate_Case_1">
+			<input type="button" value="台北市各里房價" class="ToggleLayer" data-id="Real_Estate_Case_1">
+			</br>
+			<button class="query">點我進行選取</button>
+		</div>
+
+		<div id="container" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+	</div>
+
+
+	<div id="viewDiv"></div>
+
+</body>
+
+</html>
